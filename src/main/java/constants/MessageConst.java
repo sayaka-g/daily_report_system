@@ -7,7 +7,7 @@ package constants;
 public enum MessageConst {
 
     //認証
-    I_LOGINED("ログインしました"),
+    I_LOGINED("ログインしました。"),
     E_LOGINED("ログインに失敗しました。"),
     I_LOGOUT("ログアウトしました。"),
 
@@ -15,6 +15,7 @@ public enum MessageConst {
     I_REGISTERED("登録が完了しました。"),
     I_UPDATED("更新が完了しました。"),
     I_DELETED("削除が完了しました。"),
+    I_REACTED("いいねしました。"),
 
     //バリデーション
     E_NONAME("氏名を入力してください。"),

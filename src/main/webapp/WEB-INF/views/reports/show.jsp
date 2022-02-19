@@ -53,7 +53,7 @@
             </c:when>
             <c:otherwise>
                 <p>
-                    <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この日報にいいねする</a>
+                    <a href="<c:url value='?action=${actRep}&command=${commReact}&id=${report.id}' />">この日報にいいねする</a>
                 </p>
             </c:otherwise>
         </c:choose>
