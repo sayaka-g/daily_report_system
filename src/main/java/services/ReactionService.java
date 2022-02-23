@@ -19,7 +19,7 @@ public class ReactionService extends ServiceBase {
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<ReactionView> getMinePerPage(int report, int page) {
+    public List<ReactionView> getLikesPerPage(int report, int page) {
 
         List<Reaction> reactions = em.createNamedQuery(JpaConst.Q_REA_GET_ALL, Reaction.class)
                 .setParameter(JpaConst.JPQL_PARM_REPORT, report)
@@ -34,7 +34,7 @@ public class ReactionService extends ServiceBase {
      * @param report
      * @return リアクションデータの件数
      */
-    public long countAllMine(int report) {
+    public long countAllLikes(int report) {
 
         long count = (long) em.createNamedQuery(JpaConst.Q_REA_COUNT_ALL, Long.class)
                 .setParameter(JpaConst.JPQL_PARM_REPORT, report)
