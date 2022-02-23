@@ -7,11 +7,13 @@ import java.util.List;
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
+import actions.views.ReactionView;
 import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import services.ReactionService;
 import services.ReportService;
 
 /**
@@ -21,6 +23,7 @@ import services.ReportService;
 public class ReportAction extends ActionBase{
 
     private ReportService service;
+    private ReactionService reactionService;
 
     /**
      * メソッドを実行する
@@ -29,10 +32,12 @@ public class ReportAction extends ActionBase{
     public void process() throws ServletException, IOException {
 
         service = new ReportService();
+        reactionService = new ReactionService();
 
         // メソッドを実行
         invoke();
         service.close();
+        reactionService.close();
     }
 
     /**
@@ -239,7 +244,7 @@ public class ReportAction extends ActionBase{
     }
 
     /**
-     * いいね数を１加算して更新を行う
+     * いいね数を１加算して日報データ更新、リアクションデータの新規登録を行う
      * @throws ServletException
      * @throws IOException
      */
@@ -253,6 +258,20 @@ public class ReportAction extends ActionBase{
 
         //日報データを更新する
         service.update(rv);
+
+        // セッションからログイン中の従業員情報を取得
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+        // パラメータの値をもとにリアクション情報のインスタンスを作成する
+        ReactionView rev = new ReactionView(
+                null,
+                rv.getId(),
+                ev, // ログインしている従業員を、日報にいいねした人として登録する
+                null,
+                null);
+
+        // リアクション情報登録
+        reactionService.create(rev);
 
         //セッションに「いいねしました」のフラッシュメッセージを設定
         putSessionScope(AttributeConst.FLUSH, MessageConst.I_REACTED.getMessage());
