@@ -92,5 +92,8 @@ public interface JpaConst {
     //指定した日報に対するリアクションの件数を取得する
     String Q_REA_COUNT_ALL = ENTITY_REA + ".countAllLikes";
     String Q_REA_COUNT_ALL_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.rep_id = :" + JPQL_PARM_REPORT;
+    //指定した日報に対する指定した従業員のリアクションの件数を取得する
+    String Q_REA_COUNT_ALL_MINE = ENTITY_REA + ".countAllMine";
+    String Q_REA_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.rep_id = :" + JPQL_PARM_REPORT + " AND r.employee = :" + JPQL_PARM_EMPLOYEE;
 
 }
