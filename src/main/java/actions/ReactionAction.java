@@ -49,10 +49,10 @@ public class ReactionAction extends ActionBase {
         ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
         //指定した日報の指定されたページ数の一覧画面に表示するリアクションデータを取得
         int page = getPage();
-        List<ReactionView> reactions = service.getLikesPerPage(rv.getId(), page);
+        List<ReactionView> reactions = service.getLikesPerPage(rv, page);
 
         //指定した日報の全リアクションデータデータの件数を取得
-        long reactionsCount = service.countAllLikes(rv.getId());
+        long reactionsCount = service.countAllLikes(rv);
 
         putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
         putRequestScope(AttributeConst.REACTIONS, reactions); //取得したリアクションデータ

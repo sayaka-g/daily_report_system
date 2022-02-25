@@ -7,6 +7,8 @@ import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import actions.views.ReactionConverter;
 import actions.views.ReactionView;
+import actions.views.ReportConverter;
+import actions.views.ReportView;
 import constants.JpaConst;
 import models.Reaction;
 
@@ -17,14 +19,14 @@ public class ReactionService extends ServiceBase {
 
     /**
      * 指定した日報に対するリアクション日報データを、指定されたページ数の一覧画面に表示する分取得しReactionViewのリストで返却する
-     * @param report 日報id
+     * @param report 日報
      * @param page ページ数
      * @return 一覧画面に表示するデータのリスト
      */
-    public List<ReactionView> getLikesPerPage(int report, int page) {
+    public List<ReactionView> getLikesPerPage(ReportView report, int page) {
 
         List<Reaction> reactions = em.createNamedQuery(JpaConst.Q_REA_GET_ALL, Reaction.class)
-                .setParameter(JpaConst.JPQL_PARM_REPORT, report)
+                .setParameter(JpaConst.JPQL_PARM_REPORT, ReportConverter.toModel(report))
                 .setFirstResult(JpaConst.ROW_PER_PAGE * (page - 1))
                 .setMaxResults(JpaConst.ROW_PER_PAGE)
                 .getResultList();
@@ -33,13 +35,13 @@ public class ReactionService extends ServiceBase {
 
     /**
      * 指定した日報に対するリアクションデータの件数を取得し、返却する
-     * @param report 日報id
+     * @param report 日報
      * @return リアクションデータの件数
      */
-    public long countAllLikes(int report) {
+    public long countAllLikes(ReportView report) {
 
         long count = (long) em.createNamedQuery(JpaConst.Q_REA_COUNT_ALL, Long.class)
-                .setParameter(JpaConst.JPQL_PARM_REPORT, report)
+                .setParameter(JpaConst.JPQL_PARM_REPORT, ReportConverter.toModel(report))
                 .getSingleResult();
 
         return count;
@@ -47,14 +49,14 @@ public class ReactionService extends ServiceBase {
 
     /**
      * 指定した日報に対する指定した従業員のリアクションデータの件数を取得し、返却する
-     * @param report 日報id
+     * @param report 日報
      * @param employee 従業員
      * @return リアクションデータの件数
      */
-    public long countAllMine(int report, EmployeeView employee) {
+    public long countAllMine(ReportView report, EmployeeView employee) {
 
         long count = (long) em.createNamedQuery(JpaConst.Q_REA_COUNT_ALL_MINE, Long.class)
-                .setParameter(JpaConst.JPQL_PARM_REPORT, report)
+                .setParameter(JpaConst.JPQL_PARM_REPORT, ReportConverter.toModel(report))
                 .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
                 .getSingleResult();
 

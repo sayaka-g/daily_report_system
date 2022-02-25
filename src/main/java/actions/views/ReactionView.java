@@ -23,9 +23,9 @@ public class ReactionView {
     private Integer id;
 
     /**
-     * いいねされた日報id
+     * いいねされた日報
      */
-    private Integer rep_id;
+    private ReportView report;
 
     /**
      * 日報にいいねした従業員

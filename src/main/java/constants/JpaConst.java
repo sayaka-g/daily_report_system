@@ -86,14 +86,14 @@ public interface JpaConst {
     //指定した従業員が作成した日報の件数を取得する
     String Q_REP_COUNT_ALL_MINE = ENTITY_REP + ".countAllMine";
     String Q_REP_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Report AS r WHERE r.employee = :" + JPQL_PARM_EMPLOYEE;
-    //指定した日報に対するリアクションを全件created_atの降順で取得する
+    //指定した日報に対するリアクションを全件idの降順で取得する
     String Q_REA_GET_ALL = ENTITY_REA + ".getAllLikes";
-    String Q_REA_GET_ALL_DEF = "SELECT r FROM Reaction AS r WHERE r.rep_id = :" + JPQL_PARM_REPORT + " ORDER BY r.createdAt DESC";
+    String Q_REA_GET_ALL_DEF = "SELECT r FROM Reaction AS r WHERE r.report = :" + JPQL_PARM_REPORT + " ORDER BY r.id DESC";
     //指定した日報に対するリアクションの件数を取得する
     String Q_REA_COUNT_ALL = ENTITY_REA + ".countAllLikes";
-    String Q_REA_COUNT_ALL_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.rep_id = :" + JPQL_PARM_REPORT;
+    String Q_REA_COUNT_ALL_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.report = :" + JPQL_PARM_REPORT;
     //指定した日報に対する指定した従業員のリアクションの件数を取得する
     String Q_REA_COUNT_ALL_MINE = ENTITY_REA + ".countAllMine";
-    String Q_REA_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.rep_id = :" + JPQL_PARM_REPORT + " AND r.employee = :" + JPQL_PARM_EMPLOYEE;
+    String Q_REA_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.report = :" + JPQL_PARM_REPORT + " AND r.employee = :" + JPQL_PARM_EMPLOYEE;
 
 }

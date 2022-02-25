@@ -167,7 +167,7 @@ public class ReportAction extends ActionBase{
         } else {
 
             // 指定した日報に対する指定した従業員のリアクションデータの件数を取得する
-            long reactionsCount = reactionService.countAllMine(rv.getId(), ev);
+            long reactionsCount = reactionService.countAllMine(rv, ev);
 
             putRequestScope(AttributeConst.REPORT, rv); // 取得した日報データ
             putRequestScope(AttributeConst.REA_COUNT, reactionsCount); // 取得したリアクションデータの件数
@@ -272,7 +272,7 @@ public class ReportAction extends ActionBase{
         // パラメータの値をもとにリアクション情報のインスタンスを作成する
         ReactionView rev = new ReactionView(
                 null,
-                rv.getId(),
+                rv,
                 ev, // ログインしている従業員を、日報にいいねした人として登録する
                 null,
                 null);

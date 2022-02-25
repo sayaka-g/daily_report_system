@@ -52,10 +52,11 @@ public class Reaction {
     private Integer id;
 
     /**
-     * いいねされた日報id
+     * いいねされた日報
      */
-    @Column(name = JpaConst.REA_COL_REP, nullable = false)
-    private Integer rep_id;
+    @ManyToOne
+    @JoinColumn(name = JpaConst.REA_COL_REP, nullable = false)
+    private Report report;
 
     /**
      * 日報にいいねした従業員

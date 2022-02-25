@@ -19,7 +19,7 @@ public class ReactionConverter {
     public static Reaction toModel(ReactionView rv) {
         return new Reaction(
                 rv.getId(),
-                rv.getRep_id(),
+                ReportConverter.toModel(rv.getReport()),
                 EmployeeConverter.toModel(rv.getEmployee()),
                 rv.getCreatedAt(),
                 rv.getUpdatedAt());
@@ -38,7 +38,7 @@ public class ReactionConverter {
 
         return new ReactionView(
                 r.getId(),
-                r.getRep_id(),
+                ReportConverter.toView(r.getReport()),
                 EmployeeConverter.toView(r.getEmployee()),
                 r.getCreatedAt(),
                 r.getUpdatedAt());
@@ -66,7 +66,7 @@ public class ReactionConverter {
      */
     public static void copyViewToModel(Reaction r, ReactionView rv) {
         r.setId(rv.getId());
-        r.setRep_id(rv.getRep_id());
+        r.setReport(ReportConverter.toModel(rv.getReport()));
         r.setEmployee(EmployeeConverter.toModel(rv.getEmployee()));
         r.setCreatedAt(rv.getCreatedAt());
         r.setUpdatedAt(rv.getUpdatedAt());
