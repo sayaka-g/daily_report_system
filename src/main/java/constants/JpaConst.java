@@ -50,16 +50,28 @@ public interface JpaConst {
     String REA_COL_CREATED_AT = "created_at"; //登録日時
     String REA_COL_UPDATED_AT = "updated_at"; //更新日時
 
+    //フォローテーブル
+    String TABLE_FOL = "follows"; //テーブル名
+    //フォローテーブルカラム
+    String FOL_COL_ID = "id"; //id
+    String FOL_COL_FOLLOWER = "follower_id"; //フォローした従業員のid
+    String FOL_COL_FOLLOWED = "followed_id"; //フォローされた従業員のid(日報を作成した従業員のid)
+    String FOL_COL_CREATED_AT = "created_at"; //登録日時
+    String FOL_COL_UPDATED_AT = "updated_at"; //更新日時
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
     String ENTITY_REA = "reaction"; //リアクション
+    String ENTITY_FOL = "follow"; //フォロー
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_EMPLOYEE = "employee"; //従業員
     String JPQL_PARM_REPORT = "report"; //日報
+    String JPQL_PARM_FOLLOWER = "follower"; //(フォローした)従業員
+    String JPQL_PARM_FOLLOWED = "followed"; //(フォローされた)従業員
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -95,5 +107,14 @@ public interface JpaConst {
     //指定した日報に対する指定した従業員のリアクションの件数を取得する
     String Q_REA_COUNT_ALL_MINE = ENTITY_REA + ".countAllMine";
     String Q_REA_COUNT_ALL_MINE_DEF = "SELECT COUNT(r) FROM Reaction AS r WHERE r.report = :" + JPQL_PARM_REPORT + " AND r.employee = :" + JPQL_PARM_EMPLOYEE;
+    //指定した従業員がフォローしている従業員が作成した日報を全件idの降順で取得する
+    String Q_REP_GET_ALL_FOLLOWING = ENTITY_REP + ".getAllFollowing";
+    String Q_REP_GET_ALL_FOLLOWING_DEF = "SELECT r FROM Report AS r LEFT JOIN Follow AS f ON r.employee = f.followed WHERE f.follower = :" + JPQL_PARM_EMPLOYEE + " ORDER BY r.id DESC";
+    //指定した従業員がフォローしている従業員が作成した日報の件数を取得する
+    String Q_REP_COUNT_ALL_FOLLOWING = ENTITY_REP + ".countAllFollowing";
+    String Q_REP_COUNT_ALL_FOLLOWING_DEF = "SELECT COUNT(r) FROM Report AS r LEFT JOIN Follow AS f ON r.employee = f.followed WHERE f.follower = :" + JPQL_PARM_EMPLOYEE;
+    //指定した従業員のフォローデータの件数を取得する
+    String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
+    String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
 
 }

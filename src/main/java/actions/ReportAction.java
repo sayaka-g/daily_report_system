@@ -13,6 +13,7 @@ import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
 import constants.MessageConst;
+import services.FollowService;
 import services.ReactionService;
 import services.ReportService;
 
@@ -24,6 +25,7 @@ public class ReportAction extends ActionBase{
 
     private ReportService service;
     private ReactionService reactionService;
+    private FollowService followService;
 
     /**
      * メソッドを実行する
@@ -33,11 +35,13 @@ public class ReportAction extends ActionBase{
 
         service = new ReportService();
         reactionService = new ReactionService();
+        followService = new FollowService();
 
         // メソッドを実行
         invoke();
         service.close();
         reactionService.close();
+        followService.close();
     }
 
     /**
@@ -169,8 +173,12 @@ public class ReportAction extends ActionBase{
             // 指定した日報に対する指定した従業員のリアクションデータの件数を取得する
             long reactionsCount = reactionService.countAllMine(rv, ev);
 
+            // 指定した従業員のフォローデータの件数を取得する
+            long followsCount = followService.countAllMine(rv, ev);
+
             putRequestScope(AttributeConst.REPORT, rv); // 取得した日報データ
             putRequestScope(AttributeConst.REA_COUNT, reactionsCount); // 取得したリアクションデータの件数
+            putRequestScope(AttributeConst.FOL_COUNT, followsCount); // 取得したフォローデータの件数
 
             // 詳細画面を表示
             forward(ForwardConst.FW_REP_SHOW);
@@ -286,4 +294,5 @@ public class ReportAction extends ActionBase{
         //一覧画面にリダイレクト
         redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
     }
+
 }

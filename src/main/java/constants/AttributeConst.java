@@ -52,7 +52,10 @@ public enum AttributeConst {
 
     //リアクション管理
     REACTIONS("reactions"),
-    REA_COUNT("reactions_count");
+    REA_COUNT("reactions_count"),
+
+    //フォロー管理
+    FOL_COUNT("follows_count");
 
 
     private final String text;
