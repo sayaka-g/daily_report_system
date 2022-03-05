@@ -56,4 +56,9 @@ public class EmployeeView {
      * 削除された従業員かどうか（現役：0、削除済み：1）
      */
     private Integer deleteFlag;
+
+    /**
+     * 職位（一般：0、課長：1、部長：2）
+     */
+    private Integer positionFlag;
 }

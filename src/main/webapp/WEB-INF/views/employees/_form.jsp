@@ -33,6 +33,14 @@
     <option value="${AttributeConst.ROLE_ADMIN.getIntegerValue()}"<c:if test="${employee.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}"> selected</c:if>>管理者</option>
 </select>
 <br /><br />
+
+<label for="${AttributeConst.EMP_POSITION_FLG.getValue()}">職位</label><br />
+<select name="${AttributeConst.EMP_POSITION_FLG.getValue()}">
+    <option value="${AttributeConst.POSITION_GENERAL.getIntegerValue()}"<c:if test="${employee.positionFlag == AttributeConst.POSITION_GENERAL.getIntegerValue()}"> selected</c:if>>一般</option>
+    <option value="${AttributeConst.POSITION_AGM.getIntegerValue()}"<c:if test="${employee.positionFlag == AttributeConst.POSITION_AGM.getIntegerValue()}"> selected</c:if>>課長</option>
+    <option value="${AttributeConst.POSITION_GM.getIntegerValue()}"<c:if test="${employee.positionFlag == AttributeConst.POSITION_GM.getIntegerValue()}"> selected</c:if>>部長</option>
+</select>
+<br /><br />
 <input type="hidden" name="${AttributeConst.EMP_ID.getValue()}" value="${employee.id}" />
 <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 <button type="submit">投稿</button>
