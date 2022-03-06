@@ -57,4 +57,19 @@ public class ReportView {
      * いいね数
      */
     private Integer likeCount;
+
+    /**
+     * 承認状況（承認待：0、差戻：1、承認済：2）
+     */
+    private Integer approvalStatus;
+
+    /**
+     * 日報を承認した従業員
+     */
+    private EmployeeView approver;
+
+    /**
+     * 承認日時
+     */
+    private LocalDateTime approvedAt;
 }

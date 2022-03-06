@@ -105,4 +105,23 @@ public class Report {
      */
     @Column(name = JpaConst.REP_COL_LIKE_COUNT, nullable = false)
     private Integer likeCount;
+
+    /**
+     * 承認状況（承認待：0、差戻：1、承認済：2）
+     */
+    @Column(name = JpaConst.REP_COL_APPROVAL_STATUS, nullable = false)
+    private Integer approvalStatus;
+
+    /**
+     * 日報を承認した従業員
+     */
+    @ManyToOne
+    @JoinColumn(name = JpaConst.REP_COL_APPROVER, nullable = true)
+    private Employee approver;
+
+    /**
+     * 承認日時
+     */
+    @Column(name = JpaConst.REP_COL_APPROVED_AT, nullable = true)
+    private LocalDateTime approvedAt;
 }

@@ -44,6 +44,13 @@ public interface JpaConst {
     String REP_COL_CREATED_AT = "created_at"; //登録日時
     String REP_COL_UPDATED_AT = "updated_at"; //更新日時
     String REP_COL_LIKE_COUNT = "like_count"; //いいね数
+    String REP_COL_APPROVAL_STATUS = "approval_status"; //承認状況
+    String REP_COL_APPROVER = "approver_id"; //日報を承認した従業員のid
+    String REP_COL_APPROVED_AT = "approved_at"; //承認日時
+
+    int STATUS_APPROVED = 2; //承認状況(承認済)
+    int STATUS_REJECTED = 1; //承認状況(差戻)
+    int STATUS_PENDING = 0; //承認状況(承認待)
 
     //リアクションテーブル
     String TABLE_REA = "reactions"; //テーブル名

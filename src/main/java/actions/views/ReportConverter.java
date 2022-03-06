@@ -3,6 +3,8 @@ package actions.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import constants.AttributeConst;
+import constants.JpaConst;
 import models.Report;
 
 /**
@@ -25,7 +27,16 @@ public class ReportConverter {
                 rv.getContent(),
                 rv.getCreatedAt(),
                 rv.getUpdatedAt(),
-                rv.getLikeCount());
+                rv.getLikeCount(),
+                rv.getApprovalStatus() == null
+                    ? null
+                    : rv.getApprovalStatus() == AttributeConst.STATUS_APPROVED.getIntegerValue()
+                            ? JpaConst.STATUS_APPROVED
+                            : rv.getApprovalStatus() == AttributeConst.STATUS_REJECTED.getIntegerValue()
+                                    ? JpaConst.STATUS_REJECTED
+                                    : JpaConst.STATUS_PENDING,
+                EmployeeConverter.toModel(rv.getApprover()),
+                rv.getApprovedAt());
     }
 
     /**
@@ -47,7 +58,16 @@ public class ReportConverter {
                 r.getContent(),
                 r.getCreatedAt(),
                 r.getUpdatedAt(),
-                r.getLikeCount());
+                r.getLikeCount(),
+                r.getApprovalStatus() == null
+                    ? null
+                    : r.getApprovalStatus() == JpaConst.STATUS_APPROVED
+                            ? AttributeConst.STATUS_APPROVED.getIntegerValue()
+                            : r.getApprovalStatus() == JpaConst.STATUS_REJECTED
+                                    ? AttributeConst.STATUS_REJECTED.getIntegerValue()
+                                    : AttributeConst.STATUS_PENDING.getIntegerValue(),
+                EmployeeConverter.toView(r.getApprover()),
+                r.getApprovedAt());
     }
 
     /**
@@ -79,5 +99,8 @@ public class ReportConverter {
         r.setCreatedAt(rv.getCreatedAt());
         r.setUpdatedAt(rv.getUpdatedAt());
         r.setLikeCount(rv.getLikeCount());
+        r.setApprovalStatus(rv.getApprovalStatus());
+        r.setApprover(EmployeeConverter.toModel(rv.getApprover()));
+        r.setApprovedAt(rv.getApprovedAt());
     }
 }

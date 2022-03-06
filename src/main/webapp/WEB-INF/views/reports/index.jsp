@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -24,6 +25,7 @@
                     <th class="report_date">日付</th>
                     <th class="report_title">タイトル</th>
                     <th class="report_like_count">いいね数</th>
+                    <th class="report_status">承認状況</th>
                     <th class="report_action">操作</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
@@ -33,14 +35,19 @@
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
-                        <c:choose>
+                        <td class="report_like_count"><c:choose>
                             <c:when test="${report.likeCount > 0}">
-                                <td class="report_like_count"><a href="<c:url value='?action=${actRea}&command=${commIdx}&id=${report.id}' />">${report.likeCount}</a></td>
+                                <a href="<c:url value='?action=${actRea}&command=${commIdx}&id=${report.id}' />">${report.likeCount}</a>
                             </c:when>
                             <c:otherwise>
-                                <td class="report_like_count">${report.likeCount}</td>
+                                ${report.likeCount}
                             </c:otherwise>
-                        </c:choose>
+                        </c:choose></td>
+                        <td class="report_status"><c:choose>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_APPROVED.getIntegerValue()}">承認済</c:when>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_REJECTED.getIntegerValue()}">差戻</c:when>
+                            <c:otherwise>承認待</c:otherwise>
+                        </c:choose></td>
                         <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                     </tr>
                 </c:forEach>

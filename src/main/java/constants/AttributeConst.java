@@ -56,6 +56,11 @@ public enum AttributeConst {
     REP_TITLE("title"),
     REP_CONTENT("content"),
 
+    //承認状況フラグ
+    STATUS_APPROVED(2),
+    STATUS_REJECTED(1),
+    STATUS_PENDING(0),
+
     //リアクション管理
     REACTIONS("reactions"),
     REA_COUNT("reactions_count"),

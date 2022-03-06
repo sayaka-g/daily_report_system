@@ -20,6 +20,10 @@ public class EmployeeConverter {
      */
     public static Employee toModel(EmployeeView ev) {
 
+        if(ev == null) {
+            return null;
+        }
+
         return new Employee(
                 ev.getId(),
                 ev.getCode(),

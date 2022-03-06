@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="actFol" value="${ForwardConst.ACT_FOL.getValue()}" />
@@ -9,6 +10,8 @@
 <c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commReact" value="${ForwardConst.CMD_REACT.getValue()}" />
 <c:set var="commCreate" value="${ForwardConst.CMD_CREATE.getValue()}" />
+<c:set var="commApprove" value="${ForwardConst.CMD_APPROVE.getValue()}" />
+<c:set var="commReject" value="${ForwardConst.CMD_REJECT.getValue()}" />
 
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
@@ -45,14 +48,41 @@
                     <th>いいね数</th>
                     <td><c:out value="${report.likeCount}" /></td>
                 </tr>
+                <tr>
+                    <th>承認状況</th>
+                    <td><c:choose>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_APPROVED.getIntegerValue()}">承認済</c:when>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_REJECTED.getIntegerValue()}">差戻</c:when>
+                            <c:otherwise>承認待</c:otherwise>
+                        </c:choose></td>
+                </tr>
+                <tr>
+                    <th><c:choose>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_APPROVED.getIntegerValue()}">承認者</c:when>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_REJECTED.getIntegerValue()}">差戻者</c:when>
+                            <c:otherwise>承認者</c:otherwise>
+                        </c:choose></th>
+                    <td><c:out value="${report.approver.name}" /></td>
+                </tr>
+                <tr>
+                    <th><c:choose>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_APPROVED.getIntegerValue()}">承認日時</c:when>
+                            <c:when test="${report.approvalStatus == AttributeConst.STATUS_REJECTED.getIntegerValue()}">差戻日時</c:when>
+                            <c:otherwise>承認日時</c:otherwise>
+                        </c:choose></th>
+                    <fmt:parseDate value="${report.approvedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="approveDay" type="date" />
+                    <td><fmt:formatDate value="${approveDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                </tr>
             </tbody>
         </table>
 
         <c:choose>
             <c:when test="${sessionScope.login_employee.id == report.employee.id}">
-                <p>
-                    <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この日報を編集する</a>
-                </p>
+                <c:if test="${report.approvalStatus != AttributeConst.STATUS_APPROVED.getIntegerValue()}">
+                    <p>
+                        <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この日報を編集する</a>
+                    </p>
+                </c:if>
             </c:when>
             <c:otherwise>
                 <c:if test="${reactions_count == 0}">
@@ -63,6 +93,16 @@
                 <c:if test="${follows_count == 0}">
                     <p>
                         <a href="<c:url value='?action=${actFol}&command=${commCreate}&id=${report.id}' />">この日報の作成者をフォローする</a>
+                    </p>
+                </c:if>
+                <c:if test="${sessionScope.login_employee.positionFlag >= 1
+                        and sessionScope.login_employee.positionFlag >= report.employee.positionFlag
+                        and report.approvalStatus == AttributeConst.STATUS_PENDING.getIntegerValue()}">
+                    <p>
+                        <a href="<c:url value='?action=${actRep}&command=${commApprove}&id=${report.id}' />">この日報を承認する</a>
+                    </p>
+                    <p>
+                        <a href="<c:url value='?action=${actRep}&command=${commReject}&id=${report.id}' />">この日報を差戻す</a>
                     </p>
                 </c:if>
             </c:otherwise>

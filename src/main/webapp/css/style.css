@@ -155,6 +155,10 @@ table#report_list .report_like_count {
     width: 13%;
 }
 
+table#report_list .report_status {
+    width: 13%;
+}
+
 table#report_list .report_action {
     width: 13%;
 }
