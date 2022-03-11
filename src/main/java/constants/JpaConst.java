@@ -70,11 +70,23 @@ public interface JpaConst {
     String FOL_COL_CREATED_AT = "created_at"; //登録日時
     String FOL_COL_UPDATED_AT = "updated_at"; //更新日時
 
+    //出退勤テーブル
+    String TABLE_ATT = "attendances"; //テーブル名
+    //出退勤テーブルカラム
+    String ATT_COL_ID = "id"; //id
+    String ATT_COL_EMP = "employee_id"; //出退勤した従業員のid
+    String ATT_COL_WORK_DATE = "work_date"; //出退勤日
+    String ATT_COL_CLOCKED_IN = "clocked_in"; //出勤時刻
+    String ATT_COL_CLOCKED_OUT = "clocked_out"; //退勤時刻
+    String ATT_COL_CREATED_AT = "created_at"; //登録日時
+    String ATT_COL_UPDATED_AT = "updated_at"; //更新日時
+
     //Entity名
     String ENTITY_EMP = "employee"; //従業員
     String ENTITY_REP = "report"; //日報
     String ENTITY_REA = "reaction"; //リアクション
     String ENTITY_FOL = "follow"; //フォロー
+    String ENTITY_ATT = "attendance"; //出退勤
 
     //JPQL内パラメータ
     String JPQL_PARM_CODE = "code"; //社員番号
@@ -83,6 +95,9 @@ public interface JpaConst {
     String JPQL_PARM_REPORT = "report"; //日報
     String JPQL_PARM_FOLLOWER = "follower"; //(フォローした)従業員
     String JPQL_PARM_FOLLOWED = "followed"; //(フォローされた)従業員
+    String JPQL_PARM_FIRST = "first"; //月初
+    String JPQL_PARM_LAST = "last"; //月末
+    String JPQL_PARM_DATE = "date"; //日付
 
     //NamedQueryの nameとquery
     //全ての従業員をidの降順に取得する
@@ -127,5 +142,10 @@ public interface JpaConst {
     //指定した従業員のフォローデータの件数を取得する
     String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
     String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
-
+    //指定した従業員がの当月の出退勤データを取得する
+    String Q_ATT_GET_ALL_MINE = ENTITY_ATT + ".getAllMine";
+    String Q_ATT_GET_ALL_MINE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.workDate >= :" + JPQL_PARM_FIRST + " AND a.workDate <= :" + JPQL_PARM_LAST + " ORDER BY a.id";
+    //指定した従業員がの当日の出退勤データを取得する
+    String Q_ATT_GET_TODAY = ENTITY_ATT + ".getToday";
+    String Q_ATT_GET_TODAY_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.workDate = :" + JPQL_PARM_DATE;
 }

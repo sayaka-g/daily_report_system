@@ -183,3 +183,17 @@ table#reaction_list .reaction_name {
 table#reaction_list .reaction_date {
     width: 20%;
 }
+
+table#attendance_list th {
+    font-weight: bold;
+    padding: 10px 2%;
+}
+
+#attendance {
+    display: flex;
+}
+
+#today {
+    margin-right: 20px;
+    padding: 5px 10px;
+}

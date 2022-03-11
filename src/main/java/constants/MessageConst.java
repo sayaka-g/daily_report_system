@@ -19,6 +19,8 @@ public enum MessageConst {
     I_FOLLOWED("フォローしました。"),
     I_APPROVED("承認しました。"),
     I_REJECTED("差戻しました。"),
+    I_CLOCKEDIN("出勤時間の登録が完了しました。"),
+    I_CLOCKEDOUT("退勤時間の登録が完了しました。"),
 
     //バリデーション
     E_NONAME("氏名を入力してください。"),

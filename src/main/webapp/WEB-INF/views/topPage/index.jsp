@@ -38,7 +38,6 @@
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
                         <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${report.title}</td>
-                        <!--  <td class="report_like_count">${report.likeCount}</td> -->
                         <td class="report_like_count"><c:choose>
                             <c:when test="${report.likeCount > 0}">
                                 <a href="<c:url value='?action=${actRea}&command=${commIdx}&id=${report.id}' />">${report.likeCount}</a>

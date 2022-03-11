@@ -66,8 +66,13 @@ public enum AttributeConst {
     REA_COUNT("reactions_count"),
 
     //フォロー管理
-    FOL_COUNT("follows_count");
+    FOL_COUNT("follows_count"),
 
+    //出退勤管理
+    ATTENDANCES("attendances"),
+    ATT_TODAY("today"),
+    ATT_CLOCK_IN_FLAG("clock_in_flag"),
+    ATT_CLOCK_OUT_FLAG("clock_out_flag");
 
     private final String text;
     private final Integer i;
