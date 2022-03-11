@@ -142,10 +142,10 @@ public interface JpaConst {
     //指定した従業員のフォローデータの件数を取得する
     String Q_FOL_COUNT_ALL_MINE = ENTITY_FOL + ".countAllMine";
     String Q_FOL_COUNT_ALL_MINE_DEF = "SELECT COUNT(f) FROM Follow AS f WHERE f.follower = :" + JPQL_PARM_FOLLOWER + " AND f.followed = :" + JPQL_PARM_FOLLOWED;
-    //指定した従業員がの当月の出退勤データを取得する
+    //指定した従業員の当月の出退勤データを取得する
     String Q_ATT_GET_ALL_MINE = ENTITY_ATT + ".getAllMine";
     String Q_ATT_GET_ALL_MINE_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.workDate >= :" + JPQL_PARM_FIRST + " AND a.workDate <= :" + JPQL_PARM_LAST + " ORDER BY a.id";
-    //指定した従業員がの当日の出退勤データを取得する
+    //指定した従業員の当日の出退勤データを取得する
     String Q_ATT_GET_TODAY = ENTITY_ATT + ".getToday";
     String Q_ATT_GET_TODAY_DEF = "SELECT a FROM Attendance AS a WHERE a.employee = :" + JPQL_PARM_EMPLOYEE + " AND a.workDate = :" + JPQL_PARM_DATE;
 }

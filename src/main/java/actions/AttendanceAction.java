@@ -58,7 +58,7 @@ public class AttendanceAction extends ActionBase {
         putRequestScope(AttributeConst.ATTENDANCES, attendances); // 取得した出退勤データ
         putRequestScope(AttributeConst.ATT_TODAY, today); // 当日日付
         putRequestScope(AttributeConst.ATT_CLOCK_IN_FLAG, checkClockIn(av)); // 出勤済みかどうか
-        putRequestScope(AttributeConst.ATT_CLOCK_OUT_FLAG, checkClockOut(av)); // 当日日付
+        putRequestScope(AttributeConst.ATT_CLOCK_OUT_FLAG, checkClockOut(av)); // 退勤済みかどうか
 
         // セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);

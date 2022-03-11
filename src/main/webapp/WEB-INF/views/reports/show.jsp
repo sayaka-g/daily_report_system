@@ -95,7 +95,7 @@
                         <a href="<c:url value='?action=${actFol}&command=${commCreate}&id=${report.id}' />">この日報の作成者をフォローする</a>
                     </p>
                 </c:if>
-                <c:if test="${sessionScope.login_employee.positionFlag >= 1
+                <c:if test="${sessionScope.login_employee.positionFlag >= AttributeConst.POSITION_AGM.getIntegerValue()
                         and sessionScope.login_employee.positionFlag >= report.employee.positionFlag
                         and report.approvalStatus == AttributeConst.STATUS_PENDING.getIntegerValue()}">
                     <p>

@@ -23,7 +23,7 @@ public class AttendanceService extends ServiceBase {
      * @param employee 従業員
      * @param firstDate 月初
      * @param lastDate 月末
-     * @return 一覧画面に表示するデータのfirstDateリスト
+     * @return 一覧画面に表示するデータのリスト
      */
     public List<AttendanceView> getAllMine(EmployeeView employee, LocalDate firstDate, LocalDate lastDate) {
 
